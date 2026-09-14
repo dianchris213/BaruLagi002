@@ -49,8 +49,11 @@ export function monthKey(iso: string) {
 }
 
 export function monthLabel(key: string) {
-  const [y, m] = key.split("-").map(Number);
+  const [y, m] = key.split("-");
+  const year = Number(y);
+  const month = Number(m);
+  if (!Number.isFinite(year) || !Number.isFinite(month)) return key;
   return new Intl.DateTimeFormat("id-ID", { month: "long", year: "numeric" }).format(
-    new Date(Date.UTC(y, m - 1, 1)),
+    new Date(Date.UTC(year, month - 1, 1)),
   );
 }
